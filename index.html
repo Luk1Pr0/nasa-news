@@ -11,6 +11,48 @@
     <!-- <link rel="icon" type="image/png" href="favicon.png"> -->
 </head>
 <body>
+    <!-- Loader -->
+    <div class="loader hidden">
+        <img src="rocket.svg" alt="Rocket loader">
+    </div>
+    <!-- Container -->
+    <div class="container">
+        <!-- Navigation -->
+        <div class="navigation-container">
+            <span class="background"></span>
+            <!-- Results Nav -->
+            <span class="navigation-items" id="resultsNav">
+                <h3 class="clickable">Favourites</h3>
+                <h3>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</h3>
+                <h3 class="clickable">Load more</h3>
+            </span>
+            <!-- Favoruites Nav -->
+            <span class="navigation-items hidden" id="favouritesNav">
+                <h3 class="clickable">Get more Nasa news!</h3>
+            </span>
+        </div>
+        <!-- Images container -->
+        <div class="images-container">
+            <div class="card">
+                <a href="#" title="View full image" target="_blank">
+                    <img src="https://apod.nasa.gov/apod/image/2011/spacex-crew-1-JenScottPhotography-11.jpg" alt="NASA picture" class="card-img-top">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Title of the image</h5>
+                    <p class="clickable">Add to favourites</p>
+                    <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id dolorem, exercitationem recusandae autem porro, fuga fugiat sequi nesciunt soluta similique perferendis consequuntur explicabo est, ut voluptatem sint laudantium? Animi iste obcaecati, voluptatum hic nisi impedit atque quos ipsum libero totam quidem alias possimus. Eligendi est qui aliquid suscipit nobis fuga?</p>
+                    <small class="text-muted">
+                        <strong>12-12-2020</strong>
+                        <span>Copyright Info</span>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Save confirmation -->
+    <div class="save-confirmed" hidden>
+        <h1>Added!</h1>
+    </div>
     <!-- Script -->
     <script src="script.js"></script>
 </body>
