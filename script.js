@@ -12,8 +12,15 @@ const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&count=${co
 let resultsArray = [];
 let favourites = {};
 
-function showContent() {
+function showContent(page) {
     window.scrollTo(0);
+    if (page === "results") {
+        resultsNav.classList.remove("hidden");
+        favouritesNav.classList.add("hidden");
+    } else {
+        resultsNav.classList.add("hidden");
+        favouritesNav.classList.remove("hidden");
+    }
     loader.classList.add("hidden");
 }
 
@@ -81,7 +88,7 @@ function updateDom(page) {
     }
     imagesContainer.textContent = "";
     createDOMNodes(page);
-    showContent();
+    showContent(page);
 }
 
 // Get 5 images from the API
@@ -122,6 +129,11 @@ function removeFavourite(url) {
         localStorage.setItem("nasaFavourites", JSON.stringify(favourites));
         updateDom("favourites");
     }
+}
+
+// Toggle between favourites nav menu and load more pictures
+function navToggle() {
+    
 }
 
 getData();
