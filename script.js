@@ -2,7 +2,7 @@ const resultsNav = document.getElementById("resultsNav");
 const favouritesNav = document.getElementById("favouritesNav");
 const imagesContainer = document.querySelector(".images-container");
 const saveConfirmed = document.querySelector(".save-confirmed");
-const loader = document.querySelector(".lodaer");
+const loader = document.querySelector(".loader");
 
 // NASA API
 const count = 5;
@@ -14,7 +14,6 @@ let favourites = {};
 
 function createDOMNodes(page) {
     const currentArray = page === "results" ? resultsArray : Object.values(favourites);
-    console.log("currentarray", page, currentArray);
     currentArray.forEach(result => {
         // Create card container
         const card = document.createElement("div");
@@ -40,8 +39,13 @@ function createDOMNodes(page) {
         // Save text
         const saveText = document.createElement("p");
         saveText.classList.add("clickable");
-        saveText.textContent = "Add to favourites";
-        saveText.setAttribute("onclick", `saveFavourite("${result.url}")`);
+        if (page === "results") {
+            saveText.textContent = "Add to favourites";
+            saveText.setAttribute("onclick", `saveFavourite("${result.url}")`);
+        } else {
+            saveText.textContent = "Remove from favourites";
+            saveText.setAttribute("onclick", `removeFavourite("${result.url}")`);
+        }
         // Card text
         const cardText = document.createElement("p");
         cardText.textContent = result.explanation;
@@ -69,18 +73,20 @@ function updateDom(page) {
     favouriteItems = localStorage.getItem("nasaFavourites");
     if (favouriteItems) {
         favourites = JSON.parse(favouriteItems)
-        console.log("favourites local storage", favourites);
     }
+    imagesContainer.textContent = "";
     createDOMNodes(page);
 }
 
 // Get 5 images from the API
 function getData() {
+    // show loader
+    loader.classList.remove("hidden");
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
             resultsArray = data;
-            updateDom("favourites");
+            updateDom("results");
         })
     .catch(err => console.log(err));
 }
@@ -100,6 +106,16 @@ function saveFavourite(url) {
         localStorage.setItem("nasaFavourites", JSON.stringify(favourites));
         };
     });
+}
+
+// Remove favoruites from local storage
+function removeFavourite(url) {
+    if (favourites[url]) {
+        delete favourites[url];
+        // Set favourites in local storage
+        localStorage.setItem("nasaFavourites", JSON.stringify(favourites));
+        updateDom("favourites");
+    }
 }
 
 getData();
